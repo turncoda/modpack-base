@@ -12,11 +12,13 @@ if not exist "%run_uat%" (
 REM Cook and pak.
 call "%run_uat%" BuildCookRun -project="%~dp0\pseudoregalia.uproject" -platform=Win64 -cook
 
-REM Set this to where the cooked map should go.
-set dst=%~dp0
+set "SRC=%~dp0\Saved\Cooked\Windows\pseudoregalia\Content\Mods\Maps"
+set "DST=%~dp0\base"
 
-copy "%~dp0\Saved\Cooked\Windows\pseudoregalia\Content\Mods\Maps\mise.uexp" "%dst%\mise.uexp"
-copy "%~dp0\Saved\Cooked\Windows\pseudoregalia\Content\Mods\Maps\mise.umap" "%dst%\mise.umap"
+rmdir /S /Q "%DST%"
+
+robocopy "%SRC%" "%DST%" *.* /S
+
 
 echo Cooked!
 pause
